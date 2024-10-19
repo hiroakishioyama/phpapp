@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Domain\Entities;
+
+class User
+{
+    private ?int $id;
+    private string $name;
+    private string $email;
+    private string $password;
+
+    public function __construct(?int $id, string $name, string $email, string $password)
+    {
+        $this->id       = $id;       // ユーザーID（新規作成時はnull）
+        $this->name     = $name;     // ユーザー名
+        $this->email    = $email;    // メールアドレス
+        $this->password = $password; // パスワード（ハッシュ化前）
+    }
+
+    // ゲッターとセッター
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    // パスワードをハッシュ化するメソッド
+    public function hashPassword(): void
+    {
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+    }
+}
